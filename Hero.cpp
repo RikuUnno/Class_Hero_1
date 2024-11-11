@@ -38,6 +38,36 @@ Hero::~Hero()
     }
 }
 
+Hero::Hero(const Hero& other)
+{
+    hp = other.hp;
+    atk = other.atk;
+    def = other.def;
+    name = name = new(nothrow) char[strlen(other.name) + 1];
+
+    if (name != nullptr)
+    {
+        copy(other.name, other.name + strlen(other.name) + 1, name);
+    }
+}
+
+void Hero::operator=(const Hero& other)
+{
+    hp = other.hp;
+    atk = other.atk;
+    def = other.def;
+    char *m_mane = new char[strlen(other.name) + 1];
+
+    if (m_mane != nullptr)
+    {
+        if (name != nullptr)
+        {
+            delete[] name;
+            copy(other.name, other.name + strlen(other.name) + 1, name);
+        }
+    }
+}
+
 void Hero::attack(Enemy* enemy)
 {
     int damage = atk - enemy->DefGetter();
@@ -52,17 +82,22 @@ void Hero::heal(int recovery)
     hp += recovery;
 }
 
-int Hero::HpGetter()
+int Hero::HpGetter() const
 {
     return hp;
 }
 
-int Hero::DefGetter()
+int Hero::AtkGetter() const
+{
+    return atk;
+}
+
+int Hero::DefGetter() const
 {
     return def;
 }
 
-char* Hero::NameGetter()
+char* Hero::NameGetter() const
 {
     return name;
 }

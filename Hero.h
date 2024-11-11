@@ -11,11 +11,14 @@ private:
     int def;
 public:
     Hero(const char* heroName, int heroHp, int heroAtk = 20, int heroDef = 5);
-    ~Hero();
+    ~Hero(); 
+    Hero(const Hero& other);
+    void operator=(const Hero& other);
     void attack(Enemy* enemy);
     void heal(int recovery = 15);
-    int HpGetter();
-    int DefGetter();
-    char* NameGetter();
+    int HpGetter() const;
+    int AtkGetter() const;
+    int DefGetter() const;
+    char* NameGetter() const;
     void TakeDamage(int damage);
 };
